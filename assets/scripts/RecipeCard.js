@@ -106,7 +106,11 @@ class RecipeCard extends HTMLElement {
 
     let image = document.createElement('img');
     //console.log(searchForKey(data, "author"));
-    image.setAttribute("src", searchForKey(data, "thumbnailUrl"));
+    let theImage = searchForKey(data, "thumbnailUrl");
+    if(theImage== undefined){
+      theImage=searchForKey(data, "image");
+    }
+    image.setAttribute("src", theImage);
     card.appendChild(image);
     // Part 1 Expose - TODO
     
@@ -115,6 +119,9 @@ class RecipeCard extends HTMLElement {
 
     theTitle.classList.add("title")
     theTitleA.innerText = searchForKey(data, "headline");
+    if(searchForKey(data, "headline") == undefined){
+      theTitleA.innerText = searchForKey(data, "name");
+    }
     theTitleA.setAttribute("href", getUrl(data));
     //theTitle.href = getUrl(data);
     theTitle.appendChild(theTitleA);
@@ -164,7 +171,8 @@ class RecipeCard extends HTMLElement {
 
     //Time
     let duration = document.createElement("time");
-    let total_time = convertTime(searchForKey(data, "totalTime"));
+    let theTime = searchForKey(data, "totalTime");
+    let total_time = convertTime(theTime);
     if(total_time == ""){
       total_time = "No time listed"
     }

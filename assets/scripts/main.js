@@ -5,7 +5,10 @@
 const recipes = [
   'https://introweb.tech/assets/json/ghostCookies.json',
   'https://introweb.tech/assets/json/birthdayCake.json',
-  'https://introweb.tech/assets/json/chocolateChip.json'
+  'https://introweb.tech/assets/json/chocolateChip.json',
+  'assets/recipes/emp.json',
+  'assets/recipes/pork.json',
+  'assets/recipes/mussel.json',
 ];
 
 // Once all of the recipes that were specified above have been fetched, their
@@ -80,15 +83,25 @@ function createRecipeCards() {
   //console.log("HI");
   console.log(Object.keys(recipeData).length);
   const theMAIN = document.querySelector("main");
-
-  for (const property in recipeData) {
-    console.log(`${property}: ${recipeData[property]}`);
-    console.log(recipeData[property]);
-
+  const theKeys = [
+    'https://introweb.tech/assets/json/ghostCookies.json',
+    'https://introweb.tech/assets/json/birthdayCake.json',
+    'https://introweb.tech/assets/json/chocolateChip.json',
+  ];
+  for(let i = 0; i < theKeys.length; i++){
     var newRecipeCard = document.createElement("recipe-card");
-    newRecipeCard.data= recipeData[property];
+    newRecipeCard.data = recipeData[theKeys[i]];
     theMAIN.appendChild(newRecipeCard);
   }
+
+  // for (const property in recipeData) {
+  //   console.log(`${property}: ${recipeData[property]}`);
+  //   console.log(recipeData[property]);
+
+  //   var newRecipeCard = document.createElement("recipe-card");
+  //   newRecipeCard.data= recipeData[property];
+  //   theMAIN.appendChild(newRecipeCard);
+  // }
   
 
 }
@@ -102,4 +115,35 @@ function bindShowMore() {
   // in the recipeData object where you stored them/
 
   // Part 2 Explore - TODO
+  const theKeys = [
+    'assets/recipes/emp.json',
+    'assets/recipes/pork.json',
+    'assets/recipes/mussel.json',
+  ];
+
+  let button = document.querySelector("button");
+  //let arrow = document.getElementById("img");
+  const theMAIN = document.querySelector("main");
+
+  button.addEventListener("click", event =>{
+    if(button.innerText == "Show more"){
+      button.innerText = "Show less";
+      for(let i = 0; i < theKeys.length; i++){
+        var newRecipeCard = document.createElement("recipe-card");
+        newRecipeCard.data = recipeData[theKeys[i]];
+        console.log(recipeData[theKeys[i]])
+        theMAIN.appendChild(newRecipeCard);
+      }
+    }
+    else{
+      button.innerText = "Show more";
+      for(let i = 0; i < theKeys.length; i++){
+        theMAIN.removeChild(theMAIN.lastChild);
+      }
+    }
+
+  });
+
+
+
 }
